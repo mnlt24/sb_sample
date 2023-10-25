@@ -1,0 +1,29 @@
+server:
+  port: 8008
+
+spring:
+  profiles:
+    active : local
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+    # 테이블 생성 후에 data.sql 실행
+    defer-datasource-initialization: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy # Camel → Snake 자동 변환
+
+    datasource:
+      hikari:
+        driver-class-name: org.h2.Driver
+        jdbc-url: "jdbc:h2:mem:public"
+logging:
+  level:
+    root: info
+    com.zaxxer.hikari.pool.HikariPool: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
