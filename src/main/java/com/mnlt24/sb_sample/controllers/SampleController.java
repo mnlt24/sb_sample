@@ -20,8 +20,13 @@ public class SampleController {
     this.sampleService = service;
   }
 
-  @GetMapping
+  @GetMapping("/list")
   public List<Member> getAllMembers() {
     return this.sampleService.getAllMembers();
+  }
+
+  @GetMapping("/test")
+  public String getTest() {
+    return "This is a test message";
   }
 }
