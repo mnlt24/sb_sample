@@ -1,4 +1,4 @@
 insert into member (id, name)
-values (1, 'name 1'),
-       (2, 'name 2'),
-       (3, 'name 3');
+values (10001, 'name 1'),
+       (10002, 'name 2'),
+       (10003, 'name 3');
