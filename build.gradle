@@ -57,5 +57,6 @@ sonar {
 		property "sonar.projectKey", "mnlt24_sb_sample"
 		property "sonar.organization", "sc-organization-mnlt24"
 		property "sonar.host.url", "https://sonarcloud.io"
+		property 'sonar.coverage.jacoco.xmlReportPaths', 'build/reports/jacoco/test/jacocoTestReport.xml'
 	}
 }

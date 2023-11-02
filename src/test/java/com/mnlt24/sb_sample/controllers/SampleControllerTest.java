@@ -36,7 +36,7 @@ class SampleControllerTest extends ControllerTest {
   @Test
   @Order(1)
   @DisplayName("고객 정보 조회 성공")
-  public void getAllMembersSuccess() throws Exception {
+  void getAllMembersSuccess() throws Exception {
     // given
     final String url = "/sample/list";
 
