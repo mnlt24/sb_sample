@@ -1,7 +1,9 @@
 package com.mnlt24.sb_sample.controllers;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import com.mnlt24.sb_sample.models.dto.MemberAddVo;
 import com.mnlt24.sb_sample.repositories.MemberRepository;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,6 +59,31 @@ class SampleControllerTest extends ControllerTest {
     final var parsed = JsonPath.parse(response);
     Long memberId = ((Number)parsed.read("$[1].id")).longValue();
     assertThat(memberId).isEqualTo(10002);
+  }
+
+  @Test
+  @Order(2)
+  @DisplayName("고객 정보 추가")
+  void addMember() throws Exception {
+    // given
+    final String url = "/sample/add";
+    final var data = new MemberAddVo.Request("고객1");
+    final var jsonData = new ObjectMapper().writeValueAsString(data);
+
+    // when
+    final ResultActions result = mockMvc.perform(
+        post(url)
+            .content(jsonData)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+    );
+
+    // then
+    MvcResult mvcResult = result.andExpect(status().isOk())
+        // 응답의 0번째 값이 DB에 저장한 값과 같은지 확인
+        .andExpect(jsonPath("id").value(1))
+        .andExpect(jsonPath("name").value("고객1"))
+        .andReturn();
   }
 
 //  @Test
